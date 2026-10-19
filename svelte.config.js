@@ -9,7 +9,7 @@ const config = {
 			fallback: '404.html'
 		}),
 		paths: {
-			base: '/ci_contest_landing'
+			base: process.env.BASE_PATH || ''
 		}
 	}
 };
