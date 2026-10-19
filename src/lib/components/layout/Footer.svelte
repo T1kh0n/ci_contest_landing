@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { asset } from '$app/paths';
 	const year = new Date().getFullYear();
 </script>
 
 <footer class="border-t border-black/5 py-10 bg-white">
 	<div class="container flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-[var(--color-text-muted)]">
 		<div class="flex items-center gap-3">
-			<img src="/svg/company-logo.svg" alt="" class="h-8 w-auto grayscale opacity-50" />
+			<img src={asset('/svg/company-logo.svg')} alt="" class="h-8 w-auto grayscale opacity-50" />
 			<span>© {year} Конкурс «КИ в РФ»</span>
 		</div>
 		<div class="flex items-center gap-6">

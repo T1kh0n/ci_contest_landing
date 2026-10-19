@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { ContestService } from '#lib/services/ContestService';
+	import { resolve, asset } from '$app/paths';
 	import Button from '../ui/Button.svelte';
 
 	const nav = ContestService.getInstance().getData().nav;
@@ -8,8 +9,8 @@
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-black/5">
 	<div class="container flex items-center justify-between" style="height: var(--height-header);">
-		<a href="/" class="flex items-center gap-2 shrink-0">
-			<img src="/svg/company-logo.svg" alt="Логотип" class="h-8 w-auto" />
+		<a href={resolve('/')} class="flex items-center gap-2 shrink-0">
+			<img src={asset('/svg/company-logo.svg')} alt="Логотип" class="h-8 w-auto" />
 			<span class="hidden sm:inline font-extrabold text-lg tracking-tight">КИ в РФ</span>
 		</a>
 
