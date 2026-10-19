@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ContestService } from '$lib/services/ContestService';
+	import { ContestService } from '#lib/services/ContestService';
 	import Button from '../ui/Button.svelte';
 
 	const data = ContestService.getInstance().getData();

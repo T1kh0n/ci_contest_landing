@@ -1,4 +1,4 @@
-import { NavLink } from '$lib/models/NavLink';
+import { NavLink } from '#lib/models/NavLink';
 
 export const navigation: NavLink[] = [
 	new NavLink('formats', 'Направления', '#formats'),

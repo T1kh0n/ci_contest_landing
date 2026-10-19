@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ContestService } from '$lib/services/ContestService';
+	import { ContestService } from '#lib/services/ContestService';
 	import SectionTitle from '../ui/SectionTitle.svelte';
 	import Button from '../ui/Button.svelte';
 

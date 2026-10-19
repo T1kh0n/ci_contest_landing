@@ -1,4 +1,4 @@
-import { FormatCard } from '$lib/models/FormatCard';
+import { FormatCard } from '#lib/models/FormatCard';
 
 export const formats: FormatCard[] = [
 	new FormatCard(

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ContestService } from '$lib/services/ContestService';
+	import { ContestService } from '#lib/services/ContestService';
 	import SectionTitle from '../ui/SectionTitle.svelte';
 
 	const items = ContestService.getInstance().getData().faq;

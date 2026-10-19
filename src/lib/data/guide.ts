@@ -1,4 +1,4 @@
-import { StepItem } from '$lib/models/StepItem';
+import { StepItem } from '#lib/models/StepItem';
 
 export const guide: StepItem[] = [
 	new StepItem('g1', 1, 'Создайте папку', 'Откройте Яндекс Диск и создайте папку с названием проекта.'),

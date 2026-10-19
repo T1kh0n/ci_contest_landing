@@ -1,7 +1,7 @@
-import { ContestData } from '$lib/models/ContestData';
-import { NavItem } from '$lib/models/NavItem';
-import { FaqItem } from '$lib/models/FaqItem';
-import { Step } from '$lib/models/Step';
+import { ContestData } from '#lib/models/ContestData';
+import { NavItem } from '#lib/models/NavItem';
+import { FaqItem } from '#lib/models/FaqItem';
+import { Step } from '#lib/models/Step';
 
 export class ContestService {
 	private static instance: ContestService | null = null;

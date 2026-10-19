@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { NavItem } from '$lib/models/NavItem';
+	import type { NavItem } from '#lib/models/NavItem';
 
 	export let item: NavItem;
 </script>

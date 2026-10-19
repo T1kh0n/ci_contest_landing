@@ -1,4 +1,4 @@
-import { StepItem } from '$lib/models/StepItem';
+import { StepItem } from '#lib/models/StepItem';
 
 export const applicationSteps: StepItem[] = [
 	new StepItem(

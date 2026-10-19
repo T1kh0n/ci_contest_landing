@@ -1,4 +1,4 @@
-import { FaqEntry } from '$lib/models/FaqEntry';
+import { FaqEntry } from '#lib/models/FaqEntry';
 
 export const faq: FaqEntry[] = [
 	new FaqEntry(
