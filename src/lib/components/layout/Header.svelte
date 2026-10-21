@@ -11,10 +11,10 @@
 	}
 </script>
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-[var(--color-accent)]/20 transition-all">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-[var(--color-accent)]/20 shadow-sm anim-enter-header transition-all">
 	<div class="container flex items-center justify-between" style="height: var(--height-header);">
-		<a href={resolve('/')} class="flex items-center gap-2.5 sm:gap-3 shrink-0 focus:outline-none" on:click={closeMenu}>
-			<div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[var(--color-bg-soft)] border border-[var(--color-accent)]/40 flex items-center justify-center p-2 shadow-sm transition-transform duration-200 active:scale-95">
+		<a href={resolve('/')} class="flex items-center gap-2.5 sm:gap-3 shrink-0 focus:outline-none group" on:click={closeMenu}>
+			<div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[var(--color-bg-soft)] border border-[var(--color-accent)]/40 flex items-center justify-center p-2 shadow-sm transition-transform duration-200 group-hover:scale-105 active:scale-95">
 				<img src={asset('/svg/company-logo.svg')} alt="Логотип" class="h-5 sm:h-6 w-auto" />
 			</div>
 			<span class="font-display font-black text-base sm:text-lg tracking-tight uppercase text-[#1a1a1a]">КИ в РФ</span>
@@ -37,21 +37,16 @@
 
 		<button
 			type="button"
-			class="lg:hidden p-2.5 min-w-[44px] min-h-[44px] rounded-2xl border border-[var(--color-accent)]/30 bg-white hover:bg-[var(--color-bg-soft)] text-black/80 transition-colors flex items-center justify-center active:scale-95 touch-manipulation"
+			class="lg:hidden p-2.5 min-w-[44px] min-h-[44px] rounded-2xl border border-[var(--color-accent)]/30 bg-white hover:bg-[var(--color-bg-soft)] text-black/80 transition-all flex items-center justify-center active:scale-95 touch-manipulation cursor-pointer"
 			aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
 			aria-expanded={menuOpen}
 			on:click={() => (menuOpen = !menuOpen)}
 		>
-			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-				{#if menuOpen}
-					<line x1="6" y1="6" x2="18" y2="18" />
-					<line x1="18" y1="6" x2="6" y2="18" />
-				{:else}
-					<line x1="4" y1="7" x2="20" y2="7" />
-					<line x1="4" y1="12" x2="20" y2="12" />
-					<line x1="4" y1="17" x2="20" y2="17" />
-				{/if}
-			</svg>
+			{#if menuOpen}
+				<i class="ri-close-line text-xl leading-none"></i>
+			{:else}
+				<i class="ri-menu-line text-xl leading-none"></i>
+			{/if}
 		</button>
 	</div>
 
