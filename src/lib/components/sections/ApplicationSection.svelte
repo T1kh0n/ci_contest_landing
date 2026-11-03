@@ -1,14 +1,23 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { ContestService } from '#lib/services/ContestService';
 	import SectionTitle from '../ui/SectionTitle.svelte';
 	import Button from '../ui/Button.svelte';
 
-	const steps = ContestService.getInstance().getData().applicationSteps;
-	let submitted = false;
+	const contestData = ContestService.getInstance().getData();
+	const steps = contestData.applicationSteps;
+	const formId = contestData.yandexFormId;
 
-	function handleSubmit() {
-		submitted = true;
-	}
+	let iframeLoaded = false;
+	let showDirectLink = false;
+
+	onMount(() => {
+		const timer = setTimeout(() => {
+			showDirectLink = true;
+		}, 4000);
+
+		return () => clearTimeout(timer);
+	});
 </script>
 
 <section id="application" class="section-block bg-[var(--color-bg-soft)] relative overflow-hidden scroll-fade-section is-visible">
@@ -46,46 +55,57 @@
 			{/each}
 		</div>
 
-		<div class="max-w-2xl mx-auto bg-white p-6 sm:p-8 md:p-12 rounded-[2rem] sm:rounded-[2.5rem] border border-[var(--color-accent)]/30 shadow-xl relative overflow-hidden interactive-card">
+		<div class="max-w-3xl mx-auto bg-white p-5 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-[var(--color-accent)]/30 shadow-xl relative overflow-hidden interactive-card">
 			<div class="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)]/15 rounded-full blur-2xl pointer-events-none"></div>
 
-			{#if submitted}
-				<div class="text-center py-8 sm:py-12">
-					<div class="w-16 h-16 sm:w-20 sm:h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-5 sm:mb-6 border border-green-200 shadow-sm text-3xl sm:text-4xl">
-						<i class="ri-checkbox-circle-line leading-none"></i>
-					</div>
-					<h3 class="font-display font-black text-xl sm:text-2xl md:text-3xl uppercase text-[#1a1a1a] mb-2 sm:mb-3">Заявка отправлена!</h3>
-					<p class="text-[var(--color-text-muted)] text-sm sm:text-base max-w-md mx-auto">Мы свяжемся с тобой в ближайшее время.</p>
+			<div class="mb-6 sm:mb-8 text-center sm:text-left">
+				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-[var(--color-accent-deep)] text-xs font-display font-bold uppercase tracking-wider mb-3">
+					<span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
+					Безопасный сбор данных через Яндекс
 				</div>
-			{:else}
-				<div class="mb-6 sm:mb-8">
-					<h3 class="font-display font-black text-xl sm:text-2xl md:text-3xl uppercase text-[#1a1a1a] mb-2 sm:mb-3">Форма заявки</h3>
-					<p class="text-[var(--color-text-muted)] text-xs sm:text-sm md:text-base text-left leading-relaxed">
-						Заполни данные. Если ты не знаешь, как загрузить видео на Яндекс Диск, прочитай <a href="#guide" class="text-[#764773] underline font-bold hover:text-[#9c6b98] transition-colors">нашу подробную инструкцию</a>.
-					</p>
+				<h3 class="font-display font-black text-xl sm:text-2xl md:text-3xl uppercase text-[#1a1a1a] mb-2 sm:mb-3">Электронная форма заявки</h3>
+				<p class="text-[var(--color-text-muted)] text-xs sm:text-sm md:text-base leading-relaxed">
+					Заполни поля формы ниже. Обработка персональных данных защищена согласно Федеральному закону № 152-ФЗ. Если требуется загрузить видео на Яндекс Диск, ознакомься с <a href="#guide" class="text-[#764773] underline font-bold hover:text-[#9c6b98] transition-colors">инструкцией</a>.
+				</p>
+			</div>
+
+			<div class="relative w-full rounded-2xl overflow-hidden border border-black/5 bg-[var(--color-bg-soft)] min-h-[580px] sm:min-h-[640px]">
+				{#if !iframeLoaded}
+					<div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 bg-white/80 backdrop-blur-sm transition-opacity">
+						<div class="w-10 h-10 border-3 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin mb-4"></div>
+						<div class="font-display font-bold text-sm text-[#1a1a1a]">Загрузка защищенной формы Яндекс...</div>
+						<div class="text-xs text-[var(--color-text-muted)] mt-1 max-w-xs">Шифрование соединения по протоколу SSL/TLS</div>
+					</div>
+				{/if}
+
+				<iframe
+					src="https://forms.yandex.ru/surveys/{formId}/?iframe=1"
+					name="yandex-form-{formId}"
+					title="Форма подачи заявки на конкурс"
+					width="100%"
+					height="680"
+					frameborder="0"
+					class="w-full relative z-0 transition-opacity duration-300"
+					style="border: none; min-height: 640px;"
+					on:load={() => (iframeLoaded = true)}
+				></iframe>
+			</div>
+
+			<div class="mt-6 pt-5 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--color-text-muted)]">
+				<div class="flex items-center gap-2">
+					<i class="ri-shield-check-line text-green-600 text-base"></i>
+					<span>152-ФЗ: Данные хранятся в защищенных ЦОД РФ</span>
 				</div>
-				<form on:submit|preventDefault={handleSubmit} class="space-y-4 sm:space-y-5">
-					<div>
-						<label for="name" class="block font-display text-[11px] sm:text-xs font-bold uppercase tracking-wider text-black/80 mb-1.5 sm:mb-2">ФИО</label>
-						<input type="text" id="name" required class="interactive-input w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border border-black/10 bg-[var(--color-bg-soft)]/50 focus:bg-white outline-none font-medium text-base sm:text-sm" placeholder="Иванова Анна Сергеевна" />
-					</div>
-					<div>
-						<label for="edu" class="block font-display text-[11px] sm:text-xs font-bold uppercase tracking-wider text-black/80 mb-1.5 sm:mb-2">Место обучения</label>
-						<input type="text" id="edu" required class="interactive-input w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border border-black/10 bg-[var(--color-bg-soft)]/50 focus:bg-white outline-none font-medium text-base sm:text-sm" placeholder="ГБПОУ Колледж креативных индустрий" />
-					</div>
-					<div>
-						<label for="contact" class="block font-display text-[11px] sm:text-xs font-bold uppercase tracking-wider text-black/80 mb-1.5 sm:mb-2">Способ связи (почта, ник в ТГ или Max)</label>
-						<input type="text" id="contact" required class="interactive-input w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border border-black/10 bg-[var(--color-bg-soft)]/50 focus:bg-white outline-none font-medium text-base sm:text-sm" placeholder="example@mail.ru или @nickname" />
-					</div>
-					<div>
-						<label for="link" class="block font-display text-[11px] sm:text-xs font-bold uppercase tracking-wider text-black/80 mb-1.5 sm:mb-2">Ссылка на видео с защитой (Яндекс Диск)</label>
-						<input type="url" id="link" required class="interactive-input w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl border border-black/10 bg-[var(--color-bg-soft)]/50 focus:bg-white outline-none font-medium text-base sm:text-sm" placeholder="https://disk.yandex.ru/..." />
-					</div>
-					<div class="pt-3 sm:pt-4">
-						<Button type="submit" fullWidth>Отправить заявку</Button>
-					</div>
-				</form>
-			{/if}
+				<a
+					href="https://forms.yandex.ru/surveys/{formId}/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-[#764773] font-bold hover:underline inline-flex items-center gap-1"
+				>
+					<span>Открыть форму в отдельном окне</span>
+					<i class="ri-external-link-line"></i>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>
