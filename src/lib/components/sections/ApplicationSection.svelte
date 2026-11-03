@@ -9,14 +9,16 @@
 	const formId = contestData.yandexFormId;
 
 	let iframeLoaded = false;
-	let showDirectLink = false;
 
 	onMount(() => {
-		const timer = setTimeout(() => {
-			showDirectLink = true;
-		}, 4000);
-
-		return () => clearTimeout(timer);
+		// Поддержка автоматического ресайзера Яндекс Форм
+		if (typeof window !== 'undefined' && (window as any).YaForms) {
+			try {
+				(window as any).YaForms.init();
+			} catch (e) {
+				console.error(e);
+			}
+		}
 	});
 </script>
 
@@ -79,8 +81,8 @@
 				{/if}
 
 				<iframe
-					src="https://forms.yandex.ru/surveys/{formId}/?iframe=1"
-					name="yandex-form-{formId}"
+					src="https://forms.yandex.ru/u/{formId}/?iframe=1"
+					name="ya-form-{formId}"
 					title="Форма подачи заявки на конкурс"
 					width="100%"
 					height="680"
@@ -97,7 +99,7 @@
 					<span>152-ФЗ: Данные хранятся в защищенных ЦОД РФ</span>
 				</div>
 				<a
-					href="https://forms.yandex.ru/surveys/{formId}/"
+					href="https://forms.yandex.ru/u/{formId}/"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-[#764773] font-bold hover:underline inline-flex items-center gap-1"

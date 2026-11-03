@@ -11,6 +11,6 @@ export class ContestData {
 		public readonly applicationSteps: Step[],
 		public readonly yandexSteps: Step[],
 		public readonly faq: FaqItem[],
-		public readonly yandexFormId: string = '6727a1e0d04688756c9a2c34'
+		public readonly yandexFormId: string = '6ae9ff19902902d3fc8a8a85'
 	) {}
 }
