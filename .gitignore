@@ -35,3 +35,5 @@ generate-docx-in-gost/
 generate_conference_docs.py
 generate_presentation.py
 skills/
+assets/
+__pycache__/
