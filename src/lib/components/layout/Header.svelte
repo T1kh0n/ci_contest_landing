@@ -51,12 +51,20 @@
 	</div>
 
 	{#if menuOpen}
-		<div class="lg:hidden fixed inset-x-0 top-[var(--height-header)] bottom-0 bg-black/30 backdrop-blur-md z-40" on:click={closeMenu} on:keydown={(e) => e.key === 'Escape' && closeMenu()} role="presentation">
+		<button
+			type="button"
+			class="lg:hidden fixed inset-x-0 top-[var(--height-header)] bottom-0 bg-black/30 backdrop-blur-md z-40 w-full text-left border-none cursor-default"
+			on:click={closeMenu}
+			on:keydown={(e) => e.key === 'Escape' && closeMenu()}
+			aria-label="Закрыть меню навигации"
+		>
 			<div
-				class="bg-white/85 backdrop-blur-2xl border-b border-white/80 shadow-2xl p-6 flex flex-col gap-3 max-h-[80vh] overflow-y-auto"
-				on:click|stopPropagation
+				class="bg-white/85 backdrop-blur-2xl border-b border-white/80 shadow-2xl p-6 flex flex-col gap-3 max-h-[80vh] overflow-y-auto cursor-auto"
+				tabindex="-1"
 				role="dialog"
 				aria-modal="true"
+				on:click|stopPropagation
+				on:keydown|stopPropagation
 			>
 				<nav class="flex flex-col gap-1.5">
 					{#each nav as item}
@@ -73,6 +81,6 @@
 					<Button href="#application" fullWidth on:click={closeMenu}>Подать заявку</Button>
 				</div>
 			</div>
-		</div>
+		</button>
 	{/if}
 </header>

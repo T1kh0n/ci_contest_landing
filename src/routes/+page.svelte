@@ -21,14 +21,18 @@
 						entry.target.classList.add('is-visible');
 						entry.target.classList.remove('is-offscreen');
 					} else {
-						entry.target.classList.remove('is-visible');
-						entry.target.classList.add('is-offscreen');
+						// Мягкое скрытие только если элемент ушел далеко за пределы экрана
+						const rect = entry.boundingClientRect;
+						if (rect.top > window.innerHeight) {
+							entry.target.classList.remove('is-visible');
+							entry.target.classList.add('is-offscreen');
+						}
 					}
 				});
 			},
 			{
-				threshold: 0.08,
-				rootMargin: '30px 0px 30px 0px'
+				threshold: 0.05,
+				rootMargin: '60px 0px 60px 0px'
 			}
 		);
 

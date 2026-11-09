@@ -43,6 +43,10 @@
 		overflow-wrap: break-word;
 		text-wrap: pretty;
 	}
+	::selection {
+		background: rgba(224, 131, 131, 0.25);
+		color: #764773;
+	}
 }
 
 @layer components {
@@ -68,22 +72,25 @@
 		justify-content: center;
 		padding-block: clamp(3.5rem, 8vw, 6.5rem);
 		position: relative;
+		content-visibility: auto;
+		contain-intrinsic-size: auto 600px;
 	}
 
 	.font-display {
 		font-family: var(--font-unbounded);
 	}
 
-	/* Эффект матового стекла (Glassmorphism) */
+	/* Эффект матового стекла (Glassmorphism) с GPU-ускорением */
 	.glass-panel {
 		background: rgba(255, 255, 255, 0.72);
-		backdrop-filter: blur(18px) saturate(160%);
-		-webkit-backdrop-filter: blur(18px) saturate(160%);
+		backdrop-filter: blur(20px) saturate(160%);
+		-webkit-backdrop-filter: blur(20px) saturate(160%);
 		border: 1px solid rgba(255, 255, 255, 0.85);
 		box-shadow: 
 			0 16px 36px -10px rgba(156, 107, 152, 0.12),
 			inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
 			inset 0 -1px 1px 0 rgba(189, 161, 199, 0.15);
+		transform: translateZ(0);
 	}
 
 	.glass-card {
@@ -95,26 +102,29 @@
 			0 12px 30px -8px rgba(156, 107, 152, 0.10),
 			inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
 		position: relative;
+		transform: translateZ(0);
 	}
 
 	.glass-card-accent {
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 245, 248, 0.7) 100%);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 245, 248, 0.72) 100%);
 		backdrop-filter: blur(16px);
 		-webkit-backdrop-filter: blur(16px);
 		border: 1.5px solid rgba(249, 169, 169, 0.45);
 		box-shadow: 
 			0 14px 34px -8px rgba(224, 131, 131, 0.16),
 			inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+		transform: translateZ(0);
 	}
 
 	.glass-card-secondary {
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(250, 245, 251, 0.7) 100%);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(250, 245, 251, 0.72) 100%);
 		backdrop-filter: blur(16px);
 		-webkit-backdrop-filter: blur(16px);
 		border: 1.5px solid rgba(189, 161, 199, 0.45);
 		box-shadow: 
 			0 14px 34px -8px rgba(156, 107, 152, 0.16),
 			inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+		transform: translateZ(0);
 	}
 
 	.glass-pill {
@@ -125,8 +135,10 @@
 		box-shadow: 
 			0 4px 16px rgba(156, 107, 152, 0.08),
 			inset 0 1px 1px rgba(255, 255, 255, 0.9);
+		transform: translateZ(0);
 	}
 
+	/* Тактильная кнопка с пружинящим откликом */
 	.btn-cta {
 		display: inline-flex;
 		align-items: center;
@@ -143,27 +155,29 @@
 		padding: 0.875rem 2rem;
 		background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent-deep) 100%);
 		line-height: 1;
-		box-shadow: 0 4px 16px rgba(224, 131, 131, 0.32);
+		box-shadow: 0 6px 20px -2px rgba(224, 131, 131, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 		text-decoration: none;
 		border: none;
 		outline: none;
 		white-space: nowrap;
 		touch-action: manipulation;
 		-webkit-tap-highlight-color: transparent;
-		transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-		            box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-		            filter 0.22s ease;
-		will-change: transform;
-		backface-visibility: hidden;
+		transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            filter 0.2s ease;
+		will-change: transform, box-shadow;
+		transform: translateZ(0);
 	}
 	.btn-cta:hover {
-		transform: translateY(-2.5px) scale(1.015);
-		box-shadow: 0 10px 28px rgba(224, 131, 131, 0.45);
-		filter: brightness(1.05);
+		transform: translateY(-3px) scale(1.02);
+		box-shadow: 0 12px 30px -4px rgba(224, 131, 131, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+		filter: brightness(1.04);
 	}
 	.btn-cta:active {
-		transform: translateY(0.5px) scale(0.97);
-		box-shadow: 0 3px 10px rgba(224, 131, 131, 0.25);
+		transform: translateY(1.5px) scale(0.965);
+		box-shadow: 0 2px 8px rgba(224, 131, 131, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.15);
+		filter: brightness(0.98);
+		transition-duration: 0.08s;
 	}
 	.btn-cta:focus-visible {
 		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 5px var(--color-accent-dark);
@@ -176,56 +190,66 @@
 		color: #764773;
 		border: 1.5px solid #bda1c7;
 		box-shadow: 0 4px 14px rgba(156, 107, 152, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-		transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-		            box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-		            background 0.22s ease,
-		            color 0.22s ease,
-		            border-color 0.22s ease;
+		transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            box-shadow 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+		            background 0.2s ease,
+		            color 0.2s ease,
+		            border-color 0.2s ease;
+		will-change: transform, box-shadow;
+		transform: translateZ(0);
 	}
 	.btn-secondary:hover {
-		transform: translateY(-2.5px) scale(1.015);
+		transform: translateY(-3px) scale(1.02);
 		background: linear-gradient(135deg, #d8c2dd 0%, #bda1c7 45%, #9c6b98 100%);
 		color: white;
 		border-color: #9c6b98;
-		box-shadow: 0 10px 26px rgba(156, 107, 152, 0.32);
+		box-shadow: 0 12px 28px -4px rgba(156, 107, 152, 0.35);
 	}
 	.btn-secondary:active {
-		transform: translateY(0.5px) scale(0.97);
-		box-shadow: 0 2px 8px rgba(156, 107, 152, 0.2);
+		transform: translateY(1.5px) scale(0.965);
+		box-shadow: 0 2px 8px rgba(156, 107, 152, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+		transition-duration: 0.08s;
 	}
 	.btn-secondary:focus-visible {
 		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 5px #9c6b98;
 	}
 
+	/* Интерактивная карточка с тактильной глубиной */
 	.interactive-card {
-		transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-		            box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-		            border-color 0.28s ease,
-		            background-color 0.28s ease;
-		will-change: transform;
+		transition: transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+		            box-shadow 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+		            border-color 0.24s ease;
+		will-change: transform, box-shadow;
+		transform: translateZ(0);
 	}
 	.interactive-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 18px 40px -8px rgba(156, 107, 152, 0.22), inset 0 1px 2px rgba(255, 255, 255, 1);
+		transform: translateY(-5px) scale(1.008);
+		box-shadow: 0 20px 42px -10px rgba(156, 107, 152, 0.22), inset 0 1px 2px rgba(255, 255, 255, 1);
 		border-color: #9c6b98;
 	}
 	.interactive-card:active {
-		transform: translateY(-1px) scale(0.995);
+		transform: translateY(0.5px) scale(0.985);
+		box-shadow: 0 6px 16px -4px rgba(156, 107, 152, 0.14);
+		transition-duration: 0.08s;
 	}
 
+	/* Тактильные поля ввода */
 	.interactive-input {
-		transition: border-color 0.2s ease,
-		            box-shadow 0.2s ease,
+		transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+		            box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
 		            background-color 0.2s ease,
-		            transform 0.2s ease;
+		            transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		will-change: transform, box-shadow;
+		transform: translateZ(0);
 	}
 	.interactive-input:hover {
 		border-color: #bda1c7;
+		transform: translateY(-1px);
 	}
 	.interactive-input:focus {
-		transform: scale(1.004);
+		transform: translateY(-1px) scale(1.005);
 		border-color: #9c6b98;
-		box-shadow: 0 0 0 4px rgba(189, 161, 199, 0.22);
+		box-shadow: 0 0 0 4px rgba(189, 161, 199, 0.25), 0 6px 16px -4px rgba(156, 107, 152, 0.12);
 		background-color: #ffffff;
 	}
 
@@ -236,6 +260,7 @@
 			linear-gradient(to bottom, rgba(156, 107, 152, 0.06) 1px, transparent 1px);
 		mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
 		-webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+		transform: translateZ(0);
 	}
 
 	/* --- 3D СФЕРЫ И ПУЗЫРИ (3D ORBS & BUBBLES) --- */
@@ -248,6 +273,8 @@
 			0 10px 20px -5px rgba(224, 131, 131, 0.3);
 		border-radius: 9999px;
 		position: relative;
+		transform: translateZ(0);
+		will-change: transform;
 	}
 
 	.orb-3d-purple {
@@ -259,6 +286,8 @@
 			0 10px 20px -5px rgba(118, 71, 115, 0.3);
 		border-radius: 9999px;
 		position: relative;
+		transform: translateZ(0);
+		will-change: transform;
 	}
 
 	.orb-3d-fusion {
@@ -270,6 +299,8 @@
 			0 12px 24px -6px rgba(224, 131, 131, 0.35);
 		border-radius: 9999px;
 		position: relative;
+		transform: translateZ(0);
+		will-change: transform;
 	}
 
 	.bubble-3d-glass {
@@ -291,6 +322,8 @@
 			0 4px 12px rgba(224, 131, 131, 0.18);
 		border-radius: 9999px;
 		position: relative;
+		transform: translateZ(0);
+		will-change: transform;
 	}
 
 	.bubble-highlight {
@@ -336,12 +369,12 @@
 }
 
 @keyframes entranceFadeDown {
-	from { opacity: 0; transform: translateY(-12px); }
+	from { opacity: 0; transform: translateY(-14px); }
 	to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes entranceFadeUp {
-	from { opacity: 0; transform: translateY(20px); }
+	from { opacity: 0; transform: translateY(22px); }
 	to { opacity: 1; transform: translateY(0); }
 }
 
@@ -365,27 +398,22 @@
 	animation: entranceFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
 }
 
+/* Оптимизированное шелковое появление секций без тяжелых blur-фильтров */
 .scroll-fade-section {
-	content-visibility: auto;
-	contain-intrinsic-size: auto 650px;
-	transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-	            transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-	            filter 0.6s ease;
+	transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+	            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 	will-change: opacity, transform;
+	transform: translateZ(0);
 }
 
 .scroll-fade-section.is-offscreen {
-	opacity: 0.15;
-	transform: scale(0.985) translateY(14px);
-	filter: blur(1px);
-	pointer-events: none;
+	opacity: 0.12;
+	transform: translateY(24px) scale(0.99);
 }
 
 .scroll-fade-section.is-visible {
 	opacity: 1;
-	transform: scale(1) translateY(0);
-	filter: blur(0);
-	pointer-events: auto;
+	transform: translateY(0) scale(1);
 }
 
 /* 3D Парение и пульсация для сфер */
@@ -459,6 +487,5 @@
 		transition: none !important;
 		opacity: 1 !important;
 		transform: none !important;
-		filter: none !important;
 	}
 }

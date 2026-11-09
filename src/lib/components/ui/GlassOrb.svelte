@@ -24,7 +24,7 @@
 
 <div
 	class="shrink-0 select-none pointer-events-none {size} {variantClasses[variant]} {animationClasses[animation]} {className}"
-	style="transform-style: preserve-3d;"
+	style="transform-style: preserve-3d; backface-visibility: hidden;"
 >
 	<div class="bubble-highlight"></div>
 	{#if variant === 'glass' || variant === 'fusion'}
