@@ -37,3 +37,5 @@ generate_presentation.py
 skills/
 assets/
 __pycache__/
+slides_html/
+slides_screenshots/
