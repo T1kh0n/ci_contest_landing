@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SectionTitle from '../ui/SectionTitle.svelte';
+	import GlassOrb from '../ui/GlassOrb.svelte';
 </script>
 
 <section id="video" class="section-block bg-white relative overflow-hidden scroll-fade-section is-visible">
@@ -7,6 +8,14 @@
 		class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[clamp(18rem,50vw,42rem)] h-[clamp(14rem,35vw,26rem)] rounded-full blur-[110px] pointer-events-none"
 		style="background: radial-gradient(circle, rgba(156, 107, 152, 0.22) 0%, rgba(224, 131, 131, 0.15) 50%, transparent 75%);"
 	></div>
+
+	<!-- 3D Декоративные объекты -->
+	<div class="absolute left-[5%] top-[20%] pointer-events-none hidden lg:block z-0 opacity-80">
+		<GlassOrb variant="coral" size="w-24 h-24" animation="float" />
+	</div>
+	<div class="absolute right-[6%] bottom-[15%] pointer-events-none hidden md:block z-0 opacity-85">
+		<GlassOrb variant="fusion" size="w-36 h-36" animation="float-slow" />
+	</div>
 
 	<div class="container relative z-10">
 		<SectionTitle
@@ -16,9 +25,9 @@
 			theme="secondary"
 		/>
 
-		<div class="max-w-4xl mx-auto">
-			<div class="relative rounded-[2rem] sm:rounded-[2.5rem] p-2.5 sm:p-4 bg-gradient-to-br from-white/90 via-[#faf5fb] to-white/90 border border-[#bda1c7]/40 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-[#9c6b98] hover:shadow-[0_20px_50px_rgba(156,107,152,0.18)] interactive-card">
-				<div class="relative w-full aspect-video rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden bg-black/5 shadow-inner">
+		<div class="max-w-4xl mx-auto relative">
+			<div class="relative rounded-[2rem] sm:rounded-[2.5rem] p-2.5 sm:p-4 glass-panel shadow-2xl transition-all duration-300 hover:shadow-[0_24px_60px_rgba(156,107,152,0.22)] interactive-card">
+				<div class="relative w-full aspect-video rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden bg-black/5 shadow-inner border border-white/50">
 					<iframe
 						src="https://vkvideo.ru/video_ext.php?oid=-218905599&id=456239761&hash=ec67c7fbef789857&hd=3"
 						class="w-full h-full border-0"

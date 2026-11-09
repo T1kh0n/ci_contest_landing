@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ContestService } from '#lib/services/ContestService';
 	import Button from '../ui/Button.svelte';
+	import GlassOrb from '../ui/GlassOrb.svelte';
 
 	const data = ContestService.getInstance().getData();
 </script>
@@ -8,10 +9,37 @@
 <section class="section-block relative pt-[calc(var(--height-header)+1.5rem)] sm:pt-[calc(var(--height-header)+2.5rem)] pb-16 sm:pb-24 overflow-hidden bg-gradient-to-b from-white via-[var(--color-bg-soft)] to-white scroll-fade-section is-visible">
 	<div class="absolute inset-0 studio-grid pointer-events-none opacity-80"></div>
 
+	<!-- Мягкие фоновые световые пятна -->
 	<div class="absolute top-1/4 -left-20 w-[clamp(18rem,45vw,36rem)] h-[clamp(18rem,45vw,36rem)] rounded-full blur-[90px] md:blur-[130px] pointer-events-none animate-float-slow" style="background: radial-gradient(circle, rgba(224, 131, 131, 0.28) 0%, rgba(224, 131, 131, 0) 70%);"></div>
 	<div class="absolute top-1/3 -right-20 w-[clamp(16rem,40vw,32rem)] h-[clamp(16rem,40vw,32rem)] rounded-full blur-[80px] md:blur-[120px] pointer-events-none animate-float-reverse" style="background: radial-gradient(circle, rgba(156, 107, 152, 0.24) 0%, rgba(156, 107, 152, 0) 70%);"></div>
 
-	<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.22] stroke-current text-[#bda1c7]" xmlns="http://www.w3.org/2000/svg">
+	<!-- 3D ОБЪЕКТЫ: СФЕРЫ И СТЕКЛЯННЫЕ ПУЗЫРИ -->
+	<!-- Главная большая 3D сфера справа -->
+	<div class="absolute right-[4%] top-[14%] pointer-events-none hidden lg:block z-0 opacity-90">
+		<GlassOrb variant="fusion" size="w-72 h-72 xl:w-88 xl:h-88" animation="float" />
+	</div>
+
+	<!-- Стеклянный пузырь поверх большой сферы -->
+	<div class="absolute right-[16%] top-[34%] pointer-events-none hidden lg:block z-10 opacity-85">
+		<GlassOrb variant="glass" size="w-36 h-36" animation="bubble" />
+	</div>
+
+	<!-- Коралловая 3D сфера поменьше -->
+	<div class="absolute right-[28%] top-[12%] pointer-events-none hidden md:block z-0 opacity-80">
+		<GlassOrb variant="coral" size="w-24 h-24" animation="float-slow" />
+	</div>
+
+	<!-- Лиловый пузырь слева от контента -->
+	<div class="absolute -left-8 top-[38%] pointer-events-none hidden sm:block z-0 opacity-70">
+		<GlassOrb variant="purple" size="w-28 h-28" animation="float-slow" />
+	</div>
+
+	<!-- Небольшие парящие пузыри -->
+	<div class="absolute right-[8%] top-[56%] pointer-events-none hidden lg:block z-10 opacity-85">
+		<GlassOrb variant="glass" size="w-20 h-20" animation="float" />
+	</div>
+
+	<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.20] stroke-current text-[#bda1c7]" xmlns="http://www.w3.org/2000/svg">
 		<defs>
 			<pattern id="crosshair-pattern" width="96" height="96" patternUnits="userSpaceOnUse">
 				<path d="M48 44v8M44 48h8" stroke-width="1.2" stroke-linecap="round" />
@@ -21,17 +49,9 @@
 		<rect width="100%" height="100%" fill="url(#crosshair-pattern)" />
 	</svg>
 
-	<div class="absolute right-4 sm:right-10 top-1/4 w-32 sm:w-64 h-32 sm:h-64 pointer-events-none opacity-20 hidden md:block">
-		<svg viewBox="0 0 200 200" fill="none" class="w-full h-full">
-			<circle cx="100" cy="100" r="90" stroke="#9c6b98" stroke-width="1" stroke-dasharray="4 4" />
-			<circle cx="100" cy="100" r="50" stroke="#e08383" stroke-width="1.5" />
-			<path d="M100 0v200M0 100h200" stroke="#9c6b98" stroke-width="0.75" stroke-dasharray="2 6" />
-		</svg>
-	</div>
-
 	<div class="container relative z-10">
 		<div class="max-w-4xl text-left">
-			<div class="anim-enter-1 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/95 shadow-sm border border-[var(--color-accent)]/40 text-[var(--color-accent-deep)] font-display font-bold text-xs sm:text-sm uppercase tracking-wider mb-6 sm:mb-8 backdrop-blur-sm max-w-full">
+			<div class="anim-enter-1 inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full glass-pill text-[var(--color-accent-deep)] font-display font-bold text-xs sm:text-sm uppercase tracking-wider mb-6 sm:mb-8 max-w-full">
 				<i class="ri-sparkling-fill text-sm shrink-0 text-[var(--color-accent-dark)]"></i>
 				<span class="truncate">{data.subtitle}</span>
 			</div>
@@ -53,8 +73,9 @@
 			</div>
 		</div>
 
-		<div class="anim-enter-5 mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-			<div class="p-6 rounded-3xl bg-white border border-[var(--color-accent)]/30 shadow-sm relative overflow-hidden group interactive-card">
+		<!-- Карточки статистики с эффектом матового стекла (Glassmorphism) -->
+		<div class="anim-enter-5 mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+			<div class="p-6 rounded-3xl glass-card relative overflow-hidden group interactive-card">
 				<div class="w-10 h-10 rounded-2xl bg-[var(--color-accent)]/20 text-[var(--color-accent-deep)] flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
 					<i class="ri-user-smile-line text-xl leading-none"></i>
 				</div>
@@ -62,7 +83,7 @@
 				<div class="text-[11px] font-display font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Для студентов</div>
 			</div>
 
-			<div class="p-6 rounded-3xl bg-white border border-[#bda1c7]/35 shadow-sm relative overflow-hidden group interactive-card">
+			<div class="p-6 rounded-3xl glass-card relative overflow-hidden group interactive-card">
 				<div class="w-10 h-10 rounded-2xl text-white flex items-center justify-center mb-3 shadow-sm transition-transform duration-300 group-hover:scale-110" style="background: linear-gradient(135deg, #d8c2dd 0%, #bda1c7 45%, #9c6b98 100%);">
 					<i class="ri-graduation-cap-line text-xl leading-none"></i>
 				</div>
@@ -70,7 +91,7 @@
 				<div class="text-[11px] font-display font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Все специальности</div>
 			</div>
 
-			<div class="p-6 rounded-3xl bg-white border border-[var(--color-accent)]/30 shadow-sm relative overflow-hidden group interactive-card">
+			<div class="p-6 rounded-3xl glass-card relative overflow-hidden group interactive-card">
 				<div class="w-10 h-10 rounded-2xl bg-[var(--color-accent)]/20 text-[var(--color-accent-deep)] flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 						<circle cx="12" cy="12" r="9.5" />
@@ -83,7 +104,7 @@
 				<div class="text-[11px] font-display font-bold uppercase tracking-wider text-[var(--color-text-muted)]">Бесплатное участие</div>
 			</div>
 
-			<div class="p-6 rounded-3xl bg-white border border-[#bda1c7]/35 shadow-sm relative overflow-hidden group interactive-card">
+			<div class="p-6 rounded-3xl glass-card relative overflow-hidden group interactive-card">
 				<div class="w-10 h-10 rounded-2xl text-white flex items-center justify-center mb-3 shadow-sm transition-transform duration-300 group-hover:scale-110" style="background: linear-gradient(135deg, #d8c2dd 0%, #bda1c7 45%, #9c6b98 100%);">
 					<i class="ri-global-line text-xl leading-none"></i>
 				</div>

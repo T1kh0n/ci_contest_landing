@@ -3,6 +3,7 @@
 	import { ContestService } from '#lib/services/ContestService';
 	import SectionTitle from '../ui/SectionTitle.svelte';
 	import Button from '../ui/Button.svelte';
+	import GlassOrb from '../ui/GlassOrb.svelte';
 
 	const contestData = ContestService.getInstance().getData();
 	const steps = contestData.applicationSteps;
@@ -11,7 +12,6 @@
 	let iframeLoaded = false;
 
 	onMount(() => {
-		// Поддержка автоматического ресайзера Яндекс Форм
 		if (typeof window !== 'undefined' && (window as any).YaForms) {
 			try {
 				(window as any).YaForms.init();
@@ -26,6 +26,17 @@
 	<div class="absolute inset-0 studio-grid opacity-40 pointer-events-none"></div>
 	<div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-[140px] pointer-events-none" style="background: radial-gradient(circle, rgba(224, 131, 131, 0.2) 0%, transparent 70%);"></div>
 
+	<!-- 3D Декоративные объекты -->
+	<div class="absolute -left-12 top-[35%] pointer-events-none hidden md:block z-0 opacity-80">
+		<GlassOrb variant="fusion" size="w-36 h-36" animation="float-slow" />
+	</div>
+	<div class="absolute -right-8 top-[48%] pointer-events-none hidden md:block z-0 opacity-85">
+		<GlassOrb variant="glass" size="w-32 h-32" animation="bubble" />
+	</div>
+	<div class="absolute right-[12%] top-[12%] pointer-events-none hidden lg:block z-0 opacity-75">
+		<GlassOrb variant="coral" size="w-20 h-20" animation="float" />
+	</div>
+
 	<div class="container relative z-10">
 		<SectionTitle
 			eyebrow="Подача работ"
@@ -36,10 +47,10 @@
 		<div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-12 sm:mb-16">
 			{#each steps as step, i (step.index)}
 				<div
-					class="p-6 sm:p-8 rounded-[1.75rem] sm:rounded-[2rem] bg-white border shadow-sm relative overflow-hidden group interactive-card"
-					style={i % 2 === 1 ? "border-color: rgba(189,161,199,0.45);" : "border-color: rgba(224,131,131,0.35);"}
+					class="p-6 sm:p-8 rounded-[1.75rem] sm:rounded-[2rem] glass-card relative overflow-hidden group interactive-card"
+					style={i % 2 === 1 ? "border-color: rgba(189,161,199,0.5);" : "border-color: rgba(249,169,169,0.5);"}
 				>
-					<div class="absolute top-2 right-4 opacity-[0.04] font-display font-black text-7xl sm:text-8xl leading-none group-hover:scale-105 group-hover:opacity-10 transition-all select-none">
+					<div class="absolute top-2 right-4 opacity-[0.05] font-display font-black text-7xl sm:text-8xl leading-none group-hover:scale-105 group-hover:opacity-15 transition-all select-none">
 						{step.index}
 					</div>
 					{#if i % 2 === 1}
@@ -57,12 +68,12 @@
 			{/each}
 		</div>
 
-		<div class="max-w-3xl mx-auto bg-white p-5 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] border border-[var(--color-accent)]/30 shadow-xl relative overflow-hidden interactive-card">
+		<div class="max-w-3xl mx-auto glass-panel p-5 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl relative overflow-hidden interactive-card">
 			<div class="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)]/15 rounded-full blur-2xl pointer-events-none"></div>
 
 			<div class="mb-6 sm:mb-8 text-center sm:text-left">
-				<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-[var(--color-accent-deep)] text-xs font-display font-bold uppercase tracking-wider mb-3">
-					<span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
+				<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill text-[var(--color-accent-deep)] text-xs font-display font-bold uppercase tracking-wider mb-3">
+					<span class="w-2 h-2 rounded-full bg-[var(--color-accent-deep)] animate-pulse"></span>
 					Безопасный сбор данных через Яндекс
 				</div>
 				<h3 class="font-display font-black text-xl sm:text-2xl md:text-3xl uppercase text-[#1a1a1a] mb-2 sm:mb-3">Электронная форма заявки</h3>
@@ -71,7 +82,7 @@
 				</p>
 			</div>
 
-			<div class="relative w-full rounded-2xl overflow-hidden border border-black/5 bg-[var(--color-bg-soft)] min-h-[580px] sm:min-h-[640px]">
+			<div class="relative w-full rounded-2xl overflow-hidden border border-white/60 bg-white/50 backdrop-blur-md min-h-[580px] sm:min-h-[640px] shadow-inner">
 				{#if !iframeLoaded}
 					<div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 bg-white/80 backdrop-blur-sm transition-opacity">
 						<div class="w-10 h-10 border-3 border-[var(--color-accent)] border-t-transparent rounded-full animate-spin mb-4"></div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ContestService } from '#lib/services/ContestService';
 	import SectionTitle from '../ui/SectionTitle.svelte';
+	import GlassOrb from '../ui/GlassOrb.svelte';
 
 	const items = ContestService.getInstance().getData().faq;
 	let openId: string | null = items[0]?.id ?? null;
@@ -13,15 +14,23 @@
 <section id="faq" class="section-block bg-[var(--color-bg-soft)] relative overflow-hidden scroll-fade-section is-visible">
 	<div class="absolute inset-0 studio-grid opacity-30 pointer-events-none"></div>
 
+	<!-- 3D Декоративные объекты -->
+	<div class="absolute right-[8%] top-[25%] pointer-events-none hidden lg:block z-0 opacity-80">
+		<GlassOrb variant="fusion" size="w-32 h-32" animation="float-slow" />
+	</div>
+	<div class="absolute left-[4%] bottom-[15%] pointer-events-none hidden md:block z-0 opacity-75">
+		<GlassOrb variant="coral" size="w-24 h-24" animation="bubble" />
+	</div>
+
 	<div class="container relative z-10">
 		<SectionTitle eyebrow="FAQ" title="Частые вопросы" />
-		<div class="max-w-3xl space-y-3">
+		<div class="max-w-3xl space-y-3 relative">
 			{#each items as item (item.id)}
 				<div
 					class={{
-						'rounded-[1.5rem] sm:rounded-[2rem] border transition-all duration-300 bg-white overflow-hidden interactive-card': true,
-						'border-[#9c6b98] shadow-md ring-1 ring-[#9c6b98]/20': openId === item.id,
-						'border-[#bda1c7]/30 shadow-sm hover:border-[#9c6b98]': openId !== item.id
+						'rounded-[1.5rem] sm:rounded-[2rem] border transition-all duration-300 overflow-hidden interactive-card glass-card': true,
+						'border-[#9c6b98] shadow-lg ring-2 ring-[#9c6b98]/20 bg-white/90': openId === item.id,
+						'border-white/80 shadow-sm hover:border-[#9c6b98]': openId !== item.id
 					}}
 				>
 					<button
@@ -35,7 +44,7 @@
 							class="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm"
 							style={openId === item.id
 								? 'background: linear-gradient(135deg, #d8c2dd 0%, #bda1c7 45%, #9c6b98 100%); color: white;'
-								: 'background: #faf5fb; border: 1.5px solid rgba(189,161,199,0.5); color: #764773;'}
+								: 'background: rgba(250, 245, 251, 0.85); border: 1.5px solid rgba(189,161,199,0.5); color: #764773;'}
 						>
 							<svg
 								class="w-4 h-4 transition-transform duration-300"
