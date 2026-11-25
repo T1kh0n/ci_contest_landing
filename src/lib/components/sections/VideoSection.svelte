@@ -29,7 +29,7 @@
 			<div class="relative rounded-[1.75rem] sm:rounded-[2.5rem] p-2 sm:p-4 glass-panel shadow-xl transition-all duration-300 hover:shadow-[0_24px_60px_rgba(156,107,152,0.22)] interactive-card">
 				<div class="relative w-full aspect-video rounded-[1.25rem] sm:rounded-[2rem] overflow-hidden bg-black/5 shadow-inner border border-white/50">
 					<iframe
-						src="https://vkvideo.ru/video_ext.php?oid=-218905599&id=456239761&hash=ec67c7fbef789857&hd=3"
+						src="https://vkvideo.ru/video_ext.php?oid=-179708471&id=456239345&hd=3"
 						class="w-full h-full border-0"
 						title="Видео о конкурсе КИ в РФ в VK Видео"
 						allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
